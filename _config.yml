@@ -65,12 +65,12 @@ author:
     # - label: "Website"
     #   icon: "fas fa-fw fa-link"
     #   url: "https://"
-    # - label: "Twitter"
-    #   icon: "fab fa-fw fa-twitter-square"
-    #   url: "https://twitter.com/"
-    - label: "GitHub"
+    # - label: "Contact"
+      # icon: "fa-brands fa-x-twitter"
+      # url: "https://x.com/"
+    - label: "Github"
       icon: "fab fa-fw fa-github"
-      url: "https://github.com/"
+      url: "https://github.com/RootAccessHacker"
     # - label: "Instagram"
     #   icon: "fab fa-fw fa-instagram"
     #   url: "https://instagram.com/"
@@ -96,8 +96,8 @@ defaults:
       layout: single
       author_profile: true
       read_time: true
-      comments: true
-      share: true
+      comments: false
+      share: false
       related: true
   # _pages
   - scope:

@@ -1,12 +1,13 @@
 ---
-title: "Post: Quote"
+title: "Wisdom"
 categories:
-  - Blog
+  - Quote
+  - Bible
 tags:
-  - Post Formats
+  - bible
   - quote
 ---
 
-> Only one thing is impossible for God: To find any sense in any copyright law on the planet.
+> Be not deceived: evil communications corrupt good manners.
   
-> <cite><a href="http://www.brainyquote.com/quotes/quotes/m/marktwain163473.html">Mark Twain</a></cite>
+> <cite><a href="https://www.biblegateway.com/passage/?search=1%20Corinthians%2015:33&version=KJV" target="_blank">1 Corinthians 15:33, KJV</a></cite>
