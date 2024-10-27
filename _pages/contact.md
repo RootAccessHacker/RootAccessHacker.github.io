@@ -2,6 +2,7 @@
 title: "Contact"
 permalink: /contact/
 date: 2024-10-27
+layout: home
 author_profile: true
 ---
 

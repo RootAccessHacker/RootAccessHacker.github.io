@@ -1,7 +1,8 @@
 ---
 title: "About"
 permalink: /about/
-date: 2019-02-15
+date: 2024-10-27
+layout: home
 author_profile: true
 ---
 
