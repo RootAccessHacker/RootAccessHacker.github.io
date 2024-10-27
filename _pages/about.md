@@ -1,6 +1,6 @@
 ---
-permalink: /about/
 title: "About"
+permalink: /about/
+date: 2019-02-15
 ---
 
-I am a BSc. student Network & Security Engineering, and this is my blog on CTF's, hacking, and cyber security research.
