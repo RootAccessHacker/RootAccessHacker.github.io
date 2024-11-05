@@ -3,7 +3,7 @@ title: First Post
 description: >-
   Public announcement for this blog
 author:
-date: 2024-04-11 20:55:00 +0800
+date: 2024-11-04 20:55:00 +0800
 categories: [Blogging, Announcement]
 tags: [announcement]
 pin: true
