@@ -4,9 +4,9 @@ description: >-
   In this forensics CTF we have to analyze a packet capture file. This CTF is of medium difficulty.
 author:
 date: 2024-11-08 04:10:00 +0100
-categories: [Writeup, CTF]
+categories: [Writeup, CTF, '2024']
 tags: [picoctf, medium, PicoCTF 2019, forensics, ctf, networking, steganography]
-pin: true
+pin: false
 math: true
 ---
 
@@ -32,9 +32,9 @@ After having inspected every layer of the packet, the source port number stood o
 
 ## Solution
 
-After analysis it became clear that the UDP packets source port number, would result in a value that is within the range of readable ASCII-characters when truncated in the form: $$ n - 5000 $$. It would be possible to strip the prepending `5` or `50` as string, but the easiest would be to simply treat the values as integers and subtracting 5000, to afterwards convert them to characters.
+After analysis it became clear that the UDP packets source port number, would result in a value that is within the range of readable ASCII-characters when truncated in the form: $$ n - 5000 $$. It would be possible to strip the prepending `5` or `50` as string, but the easiest method would be to simply treat the values as integers, subtracting 5000, and convert them to ASCII-characters.
 
-The following script does all this and prints out the flag.
+The following script does all this, while omitting `5000 - 5000 = 0` values, and prints out the flag.
 
 ```python
 import sys

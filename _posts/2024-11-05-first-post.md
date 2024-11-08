@@ -1,7 +1,7 @@
 ---
 title: First Post
 description: >-
-  Public announcement for this blog
+  Public announcement
 author:
 date: 2024-11-05 02:50:00 +0100
 categories: [Blogging, Announcement]
@@ -11,4 +11,4 @@ pin: true
 
 ## Message
 
-Today is the beginning of my journey in documenting my progress in cyber security.
+This blog will document my endeavors in documenting my progress in cyber security and solving CTF's. Enjoy.
