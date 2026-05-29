@@ -1,11 +1,11 @@
 ---
-title: PicoCTF 2019 - Wire on Shark 2
+title: PicoCTF 2019 - Shark on Wire 2
 description: >-
-  In this forensics CTF we have to analyze a packet capture file. This CTF is of medium difficulty.
+  A medium-difficulty packet forensics writeup focused on extracting hidden data from UDP source ports.
 author:
 date: 2024-11-08 04:10:00 +0100
-categories: [Writeup, CTF, '2024']
-tags: [picoctf, medium, PicoCTF 2019, forensics, ctf, networking, steganography]
+categories: [Writeup, CTF, Forensics]
+tags: [picoctf, medium, picoctf-2019, forensics, ctf, networking, steganography, wireshark]
 pin: false
 math: true
 ---
@@ -13,7 +13,10 @@ math: true
 
 ## Introduction
 
-Tools used:
+This challenge provides a packet capture and asks us to recover a flag that was exfiltrated through the network. The interesting part is not hidden file recovery or a plain-text flag search, but recognizing that a protocol field is being used as a covert channel.
+
+**Tools used**
+
 - Wireshark
 - NetworkMiner
 
@@ -24,23 +27,27 @@ When starting the challenge we get the following information regarding the CTF.
 
 ## Analysis
 
-Upon first inspection the capture.pcap file seemingly does not contain any immediately visible flag in the format picoCTF{...}. Aside from some false positives that arose after searching on: `udp contains "pico"`. I also tried to find some hidden files or credentials in the traffic with NetworkMiner but that didn't yield any results.
+Initial inspection of `capture.pcap` did not reveal an obvious `picoCTF{...}` string. A Wireshark search for `udp contains "pico"` returned a few false positives, and NetworkMiner did not identify useful hidden files or credentials.
 
-Eventually the traffic from src-IP: `10.0.0.6` with dst-port: `22` stood out; the first frame `1104` contained the word `start` and the last frame `1303` contained the word `end`. Whereas the frames in between contained `\x61\x61\x61\x61\x61` or `aaaaa` in their data-field. This lead me to think we might be on the right track.
+The traffic from source IP `10.0.0.6` to destination port `22` stood out. Frame `1104` contained the word `start`, frame `1303` contained `end`, and the packets between them carried repeated `\x61\x61\x61\x61\x61` values, or `aaaaa`, in the data field.
 
-After having inspected every layer of the packet, the source port number stood out. The value for each packet was:  $$ n >= 5000 $$. With the first and last frame being 5000, and the rest alternating values.
+That pattern made the stream look deliberate. After inspecting each layer, the source port became the signal: every packet used a value where $$ n >= 5000 $$. The first and last packets used source port `5000`, while the packets in between varied.
+
+## Hypothesis
+
+The `start` and `end` markers suggest packet boundaries for an encoded message. Since the source ports are all offset from `5000`, subtracting `5000` from each non-marker source port should map the values into the readable ASCII range.
 
 ## Solution
 
-After analysis it became clear that the UDP packets source port number, would result in a value that is within the range of readable ASCII-characters when truncated in the form: $$ n - 5000 $$. It would be possible to strip the prepending `5` or `50` as string, but the easiest method would be to simply treat the values as integers, subtracting 5000, and convert them to ASCII-characters.
+The cleanest method is to treat each UDP source port as an integer, subtract `5000`, skip the marker value `0`, and convert the result to an ASCII character.
 
-The following script does all this, while omitting `5000 - 5000 = 0` values, and prints out the flag.
+The following script extracts the hidden message:
 
 ```python
 import sys
 from scapy.all import *
 
-packets =  rdpcap(sys.argv[1])
+packets = rdpcap(sys.argv[1])
 
 flag = ""
 
@@ -51,3 +58,6 @@ for packet in packets:
 print(flag)
 ```
 
+## Takeaway
+
+When a capture has clear boundary markers but no obvious payload, inspect the metadata fields as carefully as the data field. Ports, sequence numbers, packet lengths, timing, and TTL values can all be used as low-effort covert channels.
