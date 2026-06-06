@@ -47,7 +47,7 @@ enableRobotsTXT = true
 
 [params.contact]
   # Toggle the homepage message/contact card without editing templates.
-  enabled = true
+  enabled = false
   pgp_page = "/contact/"
   heading = "Need help in low-level security?"
   text = "For research, consulting, PGP, or collaboration details, use the contact page."
