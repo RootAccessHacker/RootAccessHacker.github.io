@@ -25,3 +25,28 @@ package-lock.json
 # Misc
 _sass/dist
 assets/js/dist
+# Hugo build output
+/public/
+/resources/_gen/
+/assets/jsconfig.json
+hugo_stats.json
+
+# Hugo temporary/cache files
+.hugo_build.lock
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log
+
+# Environment/local config
+.env
+.env.*

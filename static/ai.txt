@@ -1,0 +1,10 @@
+# ai.txt -- site AI-use policy note.
+# This file is not a universally enforced web standard. Treat it as an explicit policy statement.
+
+Site: https://example.com/
+Contact: https://example.com/contact/
+
+Search-Indexing: allowed
+AI-Training: disallowed without written permission
+AI-Summarization: allowed with attribution and a canonical link
+Commercial-Reuse: disallowed without written permission

@@ -1,0 +1,7 @@
+{{ $steps := split .Inner "=>" }}
+<div class="chain">
+{{ range $i, $step := $steps }}
+  {{ if gt $i 0 }}<span class="chain-arrow">→</span>{{ end }}
+  <span class="chain-step">{{ trim $step " \n\r\t" }}</span>
+{{ end }}
+</div>

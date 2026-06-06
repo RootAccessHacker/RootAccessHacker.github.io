@@ -1,0 +1,8 @@
+# RFC 9116 security.txt. Replace every example value before publishing.
+Contact: mailto:security@example.com
+Contact: https://example.com/contact/
+Encryption: https://example.com/contact/
+Preferred-Languages: en
+Canonical: https://example.com/.well-known/security.txt
+Policy: https://example.com/contact/
+Expires: 2027-06-06T00:00:00Z

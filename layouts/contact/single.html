@@ -1,0 +1,17 @@
+{{ define "main" }}
+<div class="scan-line"></div>
+<nav class="blog-nav">
+  <a href="{{ .Site.Home.RelPermalink }}" class="nav-back">← {{ .Site.Params.profile.name }}</a>
+</nav>
+
+<div class="container contact-page">
+  <header class="header contact-header">
+    <h1 class="contact-title">{{ .Title }}</h1>
+    {{ with .Params.subtitle }}<p class="subtitle">{{ . | safeHTML }}</p>{{ end }}
+  </header>
+
+  {{ .Content }}
+
+  {{ partial "footer.html" . }}
+</div>
+{{ end }}

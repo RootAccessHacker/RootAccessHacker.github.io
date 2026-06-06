@@ -1,0 +1,4 @@
+<div class="warning-box">
+  <div class="warning-title">{{ .Get "title" | default "// Warning" }}</div>
+  {{ .Inner | markdownify }}
+</div>

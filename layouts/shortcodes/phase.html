@@ -1,0 +1,11 @@
+{{- $num := .Get "num" | default (.Get "number") | default "00" -}}
+{{- $title := .Get "title" | default "Diagram" -}}
+<div class="diagram-phase">
+  <div class="phase-header">
+    <span class="phase-num">Phase {{ $num }}</span>
+    <span class="phase-title">{{ $title }}</span>
+  </div>
+  <div class="diagram-box">
+    {{ .Inner | safeHTML }}
+  </div>
+</div>

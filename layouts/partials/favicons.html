@@ -1,0 +1,9 @@
+{{- with .Site.Params.assets.favicon_svg }}
+<link rel="icon" type="image/svg+xml" href="{{ . | relURL }}">
+{{- end }}
+{{- with .Site.Params.assets.favicon }}
+<link rel="icon" href="{{ . | relURL }}">
+{{- end }}
+{{- with .Site.Params.assets.apple_touch_icon }}
+<link rel="apple-touch-icon" href="{{ . | relURL }}">
+{{- end }}

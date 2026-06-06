@@ -1,0 +1,19 @@
+{{- $filename := .Get "filename" -}}
+{{- $lang := .Get "lang" | default (.Get "language") -}}
+{{- if and (not $lang) $filename -}}
+  {{- $ext := replace (path.Ext $filename) "." "" -}}
+  {{- $extMap := dict "asm" "asm" "bat" "bat" "c" "c" "cc" "cpp" "cmd" "bat" "cpp" "cpp" "cs" "csharp" "css" "css" "go" "go" "h" "c" "hpp" "cpp" "html" "html" "js" "javascript" "json" "json" "md" "markdown" "nim" "nim" "ps1" "powershell" "py" "python" "rs" "rust" "s" "asm" "S" "asm" "sh" "bash" "toml" "toml" "ts" "typescript" "xml" "xml" "yaml" "yaml" "yml" "yaml" -}}
+  {{- with index $extMap $ext -}}{{- $lang = . -}}{{- end -}}
+{{- end -}}
+{{- $code := trim .Inner "\n\r" -}}
+<div class="code-block{{ with $lang }} code-block-{{ . }}{{ end }}">
+  <div class="code-header">
+    <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+    {{- with $filename }}<span class="filename">{{ . }}</span>{{ end -}}
+  </div>
+  {{- if $lang -}}
+    {{- highlight $code $lang "linenos=false" -}}
+  {{- else -}}
+    <pre><code>{{ $code | htmlEscape }}</code></pre>
+  {{- end -}}
+</div>

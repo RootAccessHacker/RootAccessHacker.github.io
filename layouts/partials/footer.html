@@ -1,0 +1,13 @@
+<div class="footer">
+  <div class="footer-left">{{ .Site.Params.profile.name }} // {{ now.Format "2006" }}</div>
+  <div class="footer-links">
+    {{ if .Site.Params.footer.show_social_links }}
+      {{ range .Site.Params.social_links }}
+        <a href="{{ .url }}" target="_blank" rel="noopener">{{ .label }}</a>
+      {{ end }}
+    {{ end }}
+    {{ range .Site.Params.footer_links }}
+      <a href="{{ .url | relURL }}">{{ .label }}</a>
+    {{ end }}
+  </div>
+</div>

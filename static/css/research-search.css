@@ -1,0 +1,93 @@
+/* Blog archive helpers.
+   Original home.css remains untouched; this file only adds search/archive UI using existing theme variables. */
+
+.archive-nav {
+    background: var(--bg-tertiary);
+    padding: 10px 30px;
+    border-bottom: 1px solid var(--border);
+}
+
+.archive-nav-back {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--accent);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.archive-nav-back:hover {
+    color: var(--text-primary);
+}
+
+.archive-hero {
+    margin-bottom: 50px;
+}
+
+.research-search {
+    margin-bottom: 18px;
+}
+
+.search-label {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+}
+
+.research-filter {
+    width: 100%;
+    border: 1px solid var(--border);
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    font-family: var(--font-mono);
+    font-size: 13px;
+    padding: 12px 14px;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.research-filter:focus,
+.research-filter:hover {
+    border-color: var(--accent-dim);
+}
+
+.research-filter::placeholder {
+    color: var(--text-dim);
+}
+
+.research-tag-row {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+}
+
+.research-small-tag {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--accent);
+    border: 1px solid var(--border);
+    background: var(--bg-tertiary);
+    padding: 2px 6px;
+    letter-spacing: 0.5px;
+}
+
+.research-empty {
+    border: 1px solid var(--border);
+    background: var(--bg-secondary);
+    padding: 20px;
+    color: var(--text-dim);
+    font-family: var(--font-mono);
+    font-size: 13px;
+}
+
+.research-item[hidden],
+.research-empty[hidden] {
+    display: none;
+}

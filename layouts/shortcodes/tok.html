@@ -1,0 +1,3 @@
+{{- $class := .Get "class" | default (.Get 0) -}}
+{{- $text := .Get "text" | default .Inner -}}
+<span class="{{ $class }}">{{ $text | htmlEscape }}</span>

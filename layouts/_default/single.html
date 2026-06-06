@@ -1,0 +1,90 @@
+{{ define "main" }}
+<div class="scan-line"></div>
+<nav class="blog-nav">
+  <a href="{{ .Site.Home.RelPermalink }}" class="nav-back">← {{ .Site.Params.profile.name }}</a>
+</nav>
+
+{{- $showAdvisory := true -}}
+{{- if isset .Params "show_advisory" -}}{{- $showAdvisory = .Params.show_advisory -}}{{- end -}}
+{{- if $showAdvisory -}}
+  {{- $advisoryTitle := .Params.advisory_title | default "SECURITY ADVISORY" -}}
+  {{- with .Params.advisory -}}
+    {{- if reflect.IsMap . -}}
+      {{- with .title -}}{{- $advisoryTitle = . -}}{{- end -}}
+    {{- else -}}
+      {{- $advisoryTitle = . -}}
+    {{- end -}}
+  {{- end -}}
+  {{- $advisoryDetail := .Params.advisory_detail | default "" -}}
+  {{- with .Params.advisory -}}
+    {{- if reflect.IsMap . -}}{{- with .detail -}}{{- $advisoryDetail = . -}}{{- end -}}{{- end -}}
+  {{- end -}}
+<div class="advisory-banner">
+    <span class="blink-text">{{ $advisoryTitle }}</span>{{ with .Params.cve }} — {{ . }}{{ end }}{{ with $advisoryDetail }} — {{ . }}{{ end }}
+</div>
+{{- end }}
+
+<div class="container">
+    <header class="header">
+        <div>
+            {{- with (.Params.cve | default .Params.header_tag) }}<span class="cve-tag">{{ . }}</span>{{ end }}
+            {{- with (.Params.severity | default .Params.header_status) }}<span class="severity-tag">{{ . }}</span>{{ end }}
+        </div>
+        <h1{{ if or (eq .Type "contact") (eq .Layout "contact") }} class="contact-title"{{ end }}>{{ .Title }}</h1>
+        {{ with .Params.subtitle }}<p class="subtitle">{{ . | safeHTML }}</p>{{ end }}
+        <div class="meta">
+            {{- if .Params.meta -}}
+                {{- range .Params.meta }}
+                    {{- $label := .label | default .name -}}
+                    {{- $value := .value | default .text -}}
+                    {{- if and $label $value }}
+            <div class="meta-item">
+                <span class="label">{{ $label }}</span>
+                <span class="value">{{ $value | safeHTML }}</span>
+            </div>
+                    {{- end -}}
+                {{- end -}}
+            {{- else -}}
+            <div class="meta-item">
+                <span class="label">researcher:</span>
+                <span class="value">{{ .Params.researcher | default (printf "%s (%s)" .Site.Params.profile.name .Site.Params.profile.handle) }}</span>
+            </div>
+                {{- if .Params.show_date }}
+            <div class="meta-item">
+                <span class="label">date:</span>
+                <span class="value">{{ .Date.Format "2006-01-02" }}</span>
+            </div>
+                {{- end }}
+                {{- with .Params.target }}
+            <div class="meta-item">
+                <span class="label">target:</span>
+                <span class="value">{{ . }}</span>
+            </div>
+                {{- end }}
+                {{- with .Params.reliability }}
+            <div class="meta-item">
+                <span class="label">reliability:</span>
+                <span class="value">{{ . }}</span>
+            </div>
+                {{- end }}
+                {{- with .Params.status }}
+            <div class="meta-item">
+                <span class="label">status:</span>
+                <span class="value">{{ . }}</span>
+            </div>
+                {{- end }}
+            {{- end }}
+        </div>
+    </header>
+
+  {{ with .Params.tldr }}
+  <div class="section">
+    <div class="tldr-box"><p>{{ . | markdownify }}</p></div>
+  </div>
+  {{ end }}
+
+  {{ .Content }}
+
+  {{ partial "footer.html" . }}
+</div>
+{{ end }}

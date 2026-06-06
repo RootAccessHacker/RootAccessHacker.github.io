@@ -1,0 +1,21 @@
+{{- $rows := split .Inner "\n" -}}
+<div class="flow-diagram">
+{{- $first := true -}}
+{{- range $rows -}}
+  {{- $line := trim . " \n\r\t" -}}
+  {{- if $line -}}
+    {{- if not $first }}<div class="flow-arrow">↓</div>{{ end -}}
+    {{- $first = false -}}
+    {{- $parts := split $line "|" -}}
+    {{- $kind := trim (index $parts 0) " \n\r\t" -}}
+    {{- $label := $kind -}}
+    {{- $detail := "" -}}
+    {{- if ge (len $parts) 2 -}}{{- $label = trim (index $parts 1) " \n\r\t" -}}{{- end -}}
+    {{- if ge (len $parts) 3 -}}{{- $detail = trim (index $parts 2) " \n\r\t" -}}{{- end -}}
+    <div class="flow-step {{ $kind }}-step">
+      <div class="flow-label">{{ $label }}</div>
+      {{ with $detail }}<div class="flow-detail">{{ . }}</div>{{ end }}
+    </div>
+  {{- end -}}
+{{- end -}}
+</div>

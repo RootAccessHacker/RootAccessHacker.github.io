@@ -1,0 +1,16 @@
+{{- $lang := .Type | default "text" -}}
+{{- $langLower := lower $lang -}}
+{{- if in (slice "math" "tex" "latex") $langLower -}}
+<div class="math-block">{{ printf "\\[%s\\]" (trim .Inner "\n\r") | htmlEscape | safeHTML }}</div>
+{{- else -}}
+{{- $filename := "" -}}
+{{- with .Attributes.filename -}}{{- $filename = . -}}{{- end -}}
+{{- with .Attributes.title -}}{{- if not $filename -}}{{- $filename = . -}}{{- end -}}{{- end -}}
+<div class="code-block{{ with $lang }} code-block-{{ . }}{{ end }}">
+  <div class="code-header">
+    <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+    {{- if $filename -}}<span class="filename">{{ $filename }}</span>{{- else -}}<span class="filename">{{ $lang }}</span>{{- end -}}
+  </div>
+  {{- highlight (trim .Inner "\n\r") $lang "linenos=false" -}}
+</div>
+{{- end -}}

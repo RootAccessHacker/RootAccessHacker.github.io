@@ -1,0 +1,22 @@
+{{- $version := .Site.Params.math.katex_version | default "0.16.11" -}}
+{{- $inlineDollar := .Site.Params.math.inline_dollar -}}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@{{ $version }}/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@{{ $version }}/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@{{ $version }}/dist/contrib/auto-render.min.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  if (typeof renderMathInElement !== "function") return;
+  renderMathInElement(document.body, {
+    delimiters: [
+      { left: "$$", right: "$$", display: true },
+      { left: "\\[", right: "\\]", display: true },
+      { left: "\\(", right: "\\)", display: false }{{ if $inlineDollar }},
+      { left: "$", right: "$", display: false }{{ end }}
+    ],
+    ignoredTags: ["script", "noscript", "style", "textarea", "pre", "code"],
+    ignoredClasses: ["code-block", "highlight", "chroma"],
+    throwOnError: false,
+    strict: "warn"
+  });
+});
+</script>

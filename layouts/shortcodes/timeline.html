@@ -1,0 +1,16 @@
+{{- $items := split .Inner "\n" -}}
+<div class="timeline">
+{{- range $items -}}
+  {{- $line := trim . " \n\r\t" -}}
+  {{- if $line -}}
+    {{- $parts := split $line "=>" -}}
+    {{- $date := trim (index $parts 0) " \n\r\t" -}}
+    {{- $text := "" -}}
+    {{- if ge (len $parts) 2 -}}{{- $text = trim (index $parts 1) " \n\r\t" -}}{{- end -}}
+    <div class="timeline-item">
+      <div class="timeline-date">{{ $date }}</div>
+      <div class="timeline-text">{{ $text | markdownify }}</div>
+    </div>
+  {{- end -}}
+{{- end -}}
+</div>

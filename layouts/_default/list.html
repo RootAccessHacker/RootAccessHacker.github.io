@@ -1,0 +1,22 @@
+{{ define "main" }}
+<div class="scan-line"></div>
+<nav class="blog-nav">
+  <a class="nav-back" href="{{ .Site.Home.RelPermalink }}">← {{ .Site.Params.profile.name }}</a>
+</nav>
+<div class="container">
+  <div class="header">
+    <h1>{{ .Title }}</h1>
+    {{ with .Description }}<p class="subtitle">{{ . }}</p>{{ end }}
+  </div>
+  <div class="post-list">
+    {{ range .Pages }}
+    <a class="post-item" href="{{ .RelPermalink }}">
+      <div class="post-item-title">{{ .Title }}</div>
+      <div class="post-item-meta">{{ .Date.Format "2006-01-02" }}{{ with .Params.cve }} // {{ . }}{{ end }}</div>
+      {{ with .Summary }}<div class="post-item-summary">{{ . | plainify }}</div>{{ end }}
+    </a>
+    {{ end }}
+  </div>
+  {{ partial "footer.html" . }}
+</div>
+{{ end }}

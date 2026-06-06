@@ -1,0 +1,114 @@
+/* Hugo compatibility layer.
+   Do not put theme colors/effects here unless they are copied from the original Nimron CSS.
+   static/css/post.css is the exact uploaded article stylesheet and remains the source of truth. */
+
+/* Goldmark inline code should render with the exact same visual treatment as .code-inline. */
+:not(pre) > code {
+    background: rgba(0, 255, 65, 0.08);
+    border: 1px solid rgba(0, 255, 65, 0.2);
+    padding: 1px 6px;
+    font-size: 12px;
+    color: var(--neon-green);
+    font-family: var(--font-mono);
+}
+
+/* Hugo/Chroma output is nested inside the original .code-block component. */
+.code-block .highlight,
+.code-block .chroma {
+    margin: 0;
+    background: transparent !important;
+}
+
+.code-block .highlight pre,
+.code-block .chroma pre,
+.code-block pre.chroma {
+    margin: 0;
+    background: transparent !important;
+    color: var(--text-primary);
+}
+
+.code-block pre code,
+.code-block .chroma code {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    background: transparent;
+    border: 0;
+    padding: 0;
+    color: inherit;
+}
+
+/* Chroma token classes mapped to the exact manual token palette in the original CSS:
+   .kw, .fn, .str, .cm, .num, .type, .reg, .addr, plus theme variables. */
+.chroma .c, .chroma .c1, .chroma .cm, .chroma .cs, .chroma .cp, .chroma .cpf { color: #484f58; font-style: italic; }
+.chroma .k, .chroma .kc, .chroma .kd, .chroma .kn, .chroma .kp, .chroma .kr, .chroma .ow, .chroma .o { color: #ff7b72; }
+.chroma .kt, .chroma .nc, .chroma .ne, .chroma .nn { color: #7ee787; }
+.chroma .nf, .chroma .fm, .chroma .na, .chroma .nd, .chroma .nt, .chroma .nx { color: #d2a8ff; }
+.chroma .s, .chroma .s1, .chroma .s2, .chroma .sa, .chroma .sb, .chroma .sc, .chroma .dl, .chroma .sd, .chroma .se, .chroma .sh, .chroma .si, .chroma .sr, .chroma .ss { color: #a5d6ff; }
+.chroma .m, .chroma .mb, .chroma .mf, .chroma .mh, .chroma .mi, .chroma .mo, .chroma .il { color: #79c0ff; }
+.chroma .n, .chroma .nb, .chroma .bp, .chroma .nv, .chroma .vc, .chroma .vg, .chroma .vi, .chroma .vm { color: var(--text-primary); }
+.chroma .nl, .chroma .py { color: var(--cyan); }
+.chroma .gd { color: var(--red); }
+.chroma .gi { color: var(--neon-green); }
+.chroma .hl { background: rgba(92, 219, 126, 0.08); }
+.chroma .err { color: var(--red); }
+.chroma .ln, .chroma .lnt { color: var(--text-dim); }
+
+/* Markdown images and the image shortcode are rendered through existing Nimron diagram classes. */
+.md-image .diagram-box img,
+.diagram-box > img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    border: 1px solid var(--border);
+    background: var(--bg-primary);
+}
+
+.md-image .diagram-box a {
+    border-bottom: 0;
+}
+
+/* Contact pages use the same post layout structure, but match the white title convention used on the home and research pages.
+   This selector is deliberately more specific than the original article h1 selector so /contact/ cannot inherit neon-green post-title coloring. */
+.contact-page h1.contact-title,
+h1.contact-title {
+    color: var(--text-primary) !important;
+}
+
+/* Math notation compatibility layer. This does not modify the original Nimron CSS files. */
+.math-inline,
+.katex {
+    color: var(--text-primary);
+}
+
+.katex-display,
+.math-block {
+    margin: 20px 0;
+    padding: 16px 20px;
+    overflow-x: auto;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--cyan);
+    color: var(--text-primary);
+}
+
+.katex-display > .katex {
+    text-align: left;
+    white-space: normal;
+}
+
+.math-block .katex-display {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+}
+
+.katex .mfrac .frac-line,
+.katex .overline .overline-line,
+.katex .rule {
+    border-color: var(--text-secondary);
+}
+
+.katex .mord.text {
+    color: var(--text-secondary);
+}

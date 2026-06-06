@@ -1,0 +1,26 @@
+{{- $src := .Destination -}}
+{{- $alt := .Text -}}
+{{- $title := .Title -}}
+{{- $resource := .Page.Resources.GetMatch $src -}}
+{{- if and (not $resource) (strings.HasPrefix $src "./") -}}
+  {{- $resource = .Page.Resources.GetMatch (strings.TrimPrefix "./" $src) -}}
+{{- end -}}
+{{- $url := $src -}}
+{{- if $resource -}}
+  {{- $url = $resource.RelPermalink -}}
+{{- end -}}
+{{- $heading := or $title $alt -}}
+<div class="diagram-phase md-image">
+  {{- with $heading }}
+  <div class="phase-header">
+    <span class="phase-num">IMG</span>
+    <span class="phase-title">{{ . }}</span>
+  </div>
+  {{- end }}
+  <div class="diagram-box">
+    <img src="{{ $url | safeURL }}" alt="{{ $alt }}"{{ with $title }} title="{{ . }}"{{ end }}>
+    {{- with $title }}
+    <div class="memory-caption">{{ . }}</div>
+    {{- end }}
+  </div>
+</div>

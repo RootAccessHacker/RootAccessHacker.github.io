@@ -1,0 +1,102 @@
+baseURL = "https://rootaccesshacker.github.io/"
+languageCode = "en-us"
+title = "Cerberion // Cyber Security"
+enableRobotsTXT = true
+
+[params]
+  description = "Cyber security research, Writeups and Programming."
+  footer_suffix = "Research"
+
+
+[params.seo]
+  robots = "index,follow"
+  twitter_card = "summary_large_image"
+  twitter_site = "@Cerberion"
+  default_image = ""
+  keywords = ["security research", "systems internals", "vulnerability research", "cyber security"]
+
+[params.footer]
+  # Set to true if you want X/GitHub/etc. displayed in the footer.
+  show_social_links = false
+
+[params.robots]
+  allow = ["/"]
+  disallow = []
+  sitemap = true
+
+
+[params.math]
+  # Global switch. Keep false and set `math: true` per page if only some posts need formulas.
+  enabled = false
+  provider = "katex"
+  katex_version = "0.16.11"
+  inline_dollar = true
+
+[params.assets]
+  # Put these files under static/. Empty values are ignored.
+  favicon_svg = "/favicon.svg"
+  favicon = ""
+  apple_touch_icon = ""
+
+[params.profile]
+  name = "Cerberion"
+  username = "Cerberion"
+  handle = "@Cerberion"
+  title = "Security Researcher"
+  bio = "**Cyber Security Research** and **Writeups**"
+
+[params.contact]
+  # Toggle the homepage message/contact card without editing templates.
+  enabled = false
+  pgp_page = "/contact/"
+  heading = "Need help in low-level security?"
+  text = "For research, consulting, PGP, or collaboration details, use the contact page."
+  # Default target uses the internal contact/PGP page so you are not forced to expose X, GitHub, or any other platform.
+  url = "/contact/"
+  action_text = "View contact / PGP"
+  # Optional: set social_key = "x" and leave url/action_text empty if you want the original Message @handle behavior.
+  social_key = "x"
+  action_prefix = "Message"
+  note = "Use your preferred secure channel for sensitive inquiries."
+
+[[params.social_links]]
+  key = "x"
+  label = "X / Twitter"
+  username = "Cerberion"
+  handle = "@Cerberion"
+  url = "https://x.com/Cerberion"
+
+[[params.social_links]]
+  key = "github"
+  label = "GitHub"
+  username = "RootAccessHacker"
+  handle = "RootAccessHacker"
+  url = "https://github.com/RootAccessHacker"
+
+[[params.footer_links]]
+  label = "Research"
+  url = "/blog/"
+
+[permalinks]
+  blog = "/blog/:slug/"
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+    [markup.goldmark.parser]
+      autoHeadingID = true
+      [markup.goldmark.parser.attribute]
+        block = true
+        title = true
+  [markup.highlight]
+    codeFences = true
+    guessSyntax = true
+    lineNos = false
+    lineNumbersInTable = false
+    noClasses = false
+    tabWidth = 4
+
+[[params.footer_links]]
+  label = "Contact"
+  url = "/contact/"

@@ -1,0 +1,4 @@
+<div class="section">
+{{ with .Get "title" }}<h2>{{ . | safeHTML }}</h2>{{ end }}
+{{ .Inner | safeHTML }}
+</div>

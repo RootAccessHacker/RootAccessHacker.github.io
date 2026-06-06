@@ -1,0 +1,4 @@
+{{- $key := .Site.Params.contact.social_key | default "x" -}}
+{{- $matches := where .Site.Params.social_links "key" $key -}}
+{{- $social := cond (gt (len $matches) 0) (index $matches 0) (index .Site.Params.social_links 0) -}}
+{{- return $social -}}

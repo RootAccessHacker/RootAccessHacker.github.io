@@ -1,0 +1,2 @@
+{{- $expr := trim .Inner "\n\r\t " -}}
+<div class="math-block">{{ printf "\\[%s\\]" $expr | htmlEscape | safeHTML }}</div>

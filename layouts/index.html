@@ -1,0 +1,71 @@
+{{ define "main" }}
+{{ $contactSocial := partial "contact-link.html" . }}
+{{ $posts := where (where .Site.RegularPages "Section" "blog") "Params.unlisted" "!=" true }}
+{{ $posts = $posts.ByDate.Reverse }}
+<div class="container">
+  <div class="hero">
+    <div class="hero-name">{{ .Site.Params.profile.name }}</div>
+    <div class="hero-title">{{ .Site.Params.profile.title }}</div>
+    {{ with .Site.Params.profile.bio }}<p class="hero-bio">{{ . | markdownify }}</p>{{ end }}
+  </div>
+
+  {{ with .Params.services }}
+  <div class="section">
+    <div class="section-label">{{ $.Params.services_label | default "What I Do" }}</div>
+    <div class="services-grid">
+      {{ range . }}
+      <div class="service-card">
+        <div class="service-icon">{{ .icon }}</div>
+        <div class="service-name">{{ .name }}</div>
+        <div class="service-desc">{{ .description }}</div>
+      </div>
+      {{ end }}
+    </div>
+  </div>
+  {{ end }}
+
+  {{ if .Site.Params.contact.enabled }}
+  {{ $contactURL := .Site.Params.contact.url | default $contactSocial.url }}
+  {{ $contactText := .Site.Params.contact.action_text | default (printf "%s %s" (.Site.Params.contact.action_prefix | default "Message") $contactSocial.handle) }}
+  <div class="section">
+    <div class="contact-section">
+      <div class="contact-heading">{{ .Site.Params.contact.heading }}</div>
+      <p class="contact-text">{{ .Site.Params.contact.text }}</p>
+      <a class="contact-link" href="{{ $contactURL }}"{{ if or (hasPrefix $contactURL "http://") (hasPrefix $contactURL "https://") }} target="_blank" rel="noopener"{{ end }}>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        {{ $contactText }}
+      </a>
+      {{ with .Site.Params.contact.note }}<div class="contact-note">{{ . }}</div>{{ end }}
+    </div>
+  </div>
+  {{ end }}
+
+  <div class="section">
+    <div class="section-label">{{ .Params.research_label | default "Published Research" }}{{ if ne .Params.research_show_count false }} &mdash; {{ len $posts }}{{ end }}</div>
+    <div class="vendor-group">
+      <div class="vendor-label">{{ .Params.dynamic_posts_label | default "Latest Posts" }}</div>
+      {{ if gt (len $posts) 0 }}
+        {{ range $posts }}
+        <a href="{{ .RelPermalink }}" class="research-item">
+          <div class="research-info">
+            {{ with .Params.cve }}<div class="research-cve">{{ . }}</div>{{ end }}
+            <div class="research-title">{{ .Title }}</div>
+            {{ with .Params.target }}<div class="research-target">{{ . }}</div>{{ else }}{{ with .Params.subtitle }}<div class="research-target">{{ . }}</div>{{ end }}{{ end }}
+          </div>
+          {{ with (.Params.tag | default .Params.severity | default .Params.status) }}<div class="research-tag">{{ . }}</div>{{ end }}
+        </a>
+        {{ end }}
+      {{ else }}
+        <div class="research-item">
+          <div class="research-info">
+            <div class="research-title">No published posts yet.</div>
+            <div class="research-target">Create one with: hugo new blog/my-new-post/index.md</div>
+          </div>
+        </div>
+      {{ end }}
+    </div>
+  </div>
+
+  {{ partial "footer.html" . }}
+</div>
+{{ end }}

@@ -1,0 +1,69 @@
+{{ define "main" }}
+<nav class="archive-nav">
+  <a class="archive-nav-back" href="{{ .Site.Home.RelPermalink }}">← {{ .Site.Params.profile.name }}</a>
+</nav>
+{{ $posts := where (where .Site.RegularPages "Section" "blog") "Params.unlisted" "!=" true }}
+{{ $posts = $posts.ByDate.Reverse }}
+<div class="container research-archive">
+  <div class="hero archive-hero">
+    <div class="hero-name">{{ .Title | default "Research" }}</div>
+    {{ with .Description }}<p class="hero-bio">{{ . }}</p>{{ end }}
+  </div>
+
+  <div class="section">
+    <div class="section-label">{{ .Params.list_label | default "Published Research" }}{{ if ne .Params.show_count false }} &mdash; {{ len $posts }}{{ end }}</div>
+
+    <div class="research-search">
+      <label class="search-label" for="research-filter">Filter research</label>
+      <input id="research-filter" class="research-filter" type="search" placeholder="Search title, CVE, tag, description..." autocomplete="off">
+    </div>
+
+    <div class="vendor-group" id="research-results">
+      {{ range $posts }}
+      {{ $description := .Params.description | default .Params.subtitle | default .Params.target | default "" }}
+      {{ $primaryTag := .Params.tag | default .Params.severity | default .Params.status }}
+      {{ $tags := slice }}
+      {{ with .Params.cve }}{{ $tags = $tags | append . }}{{ end }}
+      {{ with $primaryTag }}{{ $tags = $tags | append . }}{{ end }}
+      {{ with .Params.tags }}{{ range . }}{{ $tags = $tags | append . }}{{ end }}{{ end }}
+      {{ $search := printf "%s %s %s" (delimit $tags " ") .Title $description }}
+      <a href="{{ .RelPermalink }}" class="research-item" data-search="{{ $search | plainify }}">
+        <div class="research-info">
+          {{ with .Params.cve }}<div class="research-cve">{{ . }}</div>{{ end }}
+          <div class="research-title">{{ .Title }}</div>
+          {{ with $description }}<div class="research-target">{{ . }}</div>{{ end }}
+          {{ with .Params.tags }}
+          <div class="research-tag-row">
+            {{ range . }}<span class="research-small-tag">{{ . }}</span>{{ end }}
+          </div>
+          {{ end }}
+        </div>
+        {{ with $primaryTag }}<div class="research-tag">{{ . }}</div>{{ end }}
+      </a>
+      {{ end }}
+      <div class="research-empty" hidden>No matching research found.</div>
+    </div>
+  </div>
+
+  {{ partial "footer.html" . }}
+</div>
+<script>
+(function () {
+  var input = document.getElementById('research-filter');
+  var results = document.getElementById('research-results');
+  if (!input || !results) return;
+  var items = Array.prototype.slice.call(results.querySelectorAll('.research-item'));
+  var empty = results.querySelector('.research-empty');
+  input.addEventListener('input', function () {
+    var query = input.value.trim().toLowerCase();
+    var shown = 0;
+    items.forEach(function (item) {
+      var match = !query || item.getAttribute('data-search').toLowerCase().indexOf(query) !== -1;
+      item.hidden = !match;
+      if (match) shown += 1;
+    });
+    if (empty) empty.hidden = shown !== 0;
+  });
+})();
+</script>
+{{ end }}
