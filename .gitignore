@@ -50,3 +50,5 @@ Thumbs.db
 # Environment/local config
 .env
 .env.*
+README.md
+THEME-AUDIT.md
