@@ -1,10 +1,10 @@
-baseURL = "https://rootaccesshacker.github.io/"
+baseURL = "https://example.com/"
 languageCode = "en-us"
-title = "Cerberion // Cyber Security"
+title = "Cerberion // Security Researcher"
 enableRobotsTXT = true
 
 [params]
-  description = "Cyber security research, Writeups and Programming."
+  description = "Security research notes, low-level systems writing, and vulnerability analysis."
   footer_suffix = "Research"
 
 
@@ -13,7 +13,7 @@ enableRobotsTXT = true
   twitter_card = "summary_large_image"
   twitter_site = "@Cerberion"
   default_image = ""
-  keywords = ["security research", "systems internals", "vulnerability research", "cyber security"]
+  keywords = ["security research", "systems internals", "vulnerability research"]
 
 [params.footer]
   # Set to true if you want X/GitHub/etc. displayed in the footer.
@@ -43,11 +43,11 @@ enableRobotsTXT = true
   username = "Cerberion"
   handle = "@Cerberion"
   title = "Security Researcher"
-  bio = "**Cyber Security Research** and **Writeups**"
+  bio = "**Security research**, **systems internals**, and **low-level engineering** notes."
 
 [params.contact]
   # Toggle the homepage message/contact card without editing templates.
-  enabled = false
+  enabled = true
   pgp_page = "/contact/"
   heading = "Need help in low-level security?"
   text = "For research, consulting, PGP, or collaboration details, use the contact page."
@@ -100,3 +100,7 @@ enableRobotsTXT = true
 [[params.footer_links]]
   label = "Contact"
   url = "/contact/"
+
+[caches]
+  [caches.images]
+    dir = ':cacheDir/images'
